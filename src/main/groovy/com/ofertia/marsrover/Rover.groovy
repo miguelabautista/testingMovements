@@ -7,20 +7,26 @@ import com.ofertia.marsrover.util.Moves
 /**
  * Created by root on 10/11/14.
  */
-class Rover {
+class Rover extends Observable{
     private int perimeterX
     private int perimeterY
-    private Directions currentWay
+    private Directions currentDirection
     private Commands command
 
     int positionX
     int positionY
 
+    private int roverId
+
+    Rover(int roverId){
+        this.roverId = roverId;
+    }
+
     List<Moves> movementsList = []
 
     List<Integer> numbers = []
 
-    void setUpperRightCoodernates(int x, int y) {
+    void setUpperRightCoordinates(int x, int y) {
         this.perimeterX = x
         this.perimeterY = y
     }
@@ -40,50 +46,50 @@ class Rover {
         }
     }
 
-    void initialWay(Directions way) {
-        currentWay = way
+    void initialWay(Directions direction) {
+        currentDirection = direction
 
-        switch (currentWay) {
-            case currentWay.N: setCommand(Commands.PLUSY)
+        switch (currentDirection) {
+            case currentDirection.N: setCommand(Commands.PLUSY)
                 break
-            case currentWay.E: setCommand(Commands.PLUSX)
+            case currentDirection.E: setCommand(Commands.PLUSX)
                 break
-            case currentWay.S: setCommand(Commands.MINUSY)
+            case currentDirection.S: setCommand(Commands.MINUSY)
                 break
-            case currentWay.W: setCommand(Commands.MINUSX)
+            case currentDirection.W: setCommand(Commands.MINUSX)
                 break
         }
     }
 
-    def changeWay(Moves newSide) {
-        switch (currentWay) {
-            case currentWay.N: if (newSide == Moves.L) {
+    def changeWay(Moves newMove) {
+        switch (currentDirection) {
+            case currentDirection.N: if (newMove == Moves.L) {
                 setCommand(Commands.MINUSX); setWay(Directions.W)
-            } else if (newSide == Moves.R) {
+            } else if (newMove == Moves.R) {
                 setCommand(Commands.PLUSX); setWay(Directions.E)
             } else {
                 move()
             }
                 break
-            case currentWay.E: if (newSide == Moves.L) {
+            case currentDirection.E: if (newMove == Moves.L) {
                 setCommand(Commands.PLUSY); setWay(Directions.N)
-            } else if (newSide == Moves.R) {
+            } else if (newMove == Moves.R) {
                 setCommand(Commands.MINUSY); setWay(Directions.S)
             } else {
                 move()
             }
                 break
-            case currentWay.S: if (newSide == Moves.L) {
+            case currentDirection.S: if (newMove == Moves.L) {
                 setCommand(Commands.PLUSX); setWay(Directions.E)
-            } else if (newSide == Moves.R) {
+            } else if (newMove == Moves.R) {
                 setCommand(Commands.MINUSX); setWay(Directions.W)
             } else {
                 move()
             }
                 break
-            case currentWay.W: if (newSide == Moves.L) {
+            case currentDirection.W: if (newMove == Moves.L) {
                 setCommand(Commands.MINUSY); setWay(Directions.S)
-            } else if (newSide == Moves.R) {
+            } else if (newMove == Moves.R) {
                 setCommand(Commands.PLUSY); setWay(Directions.N)
             } else {
                 move()
@@ -96,23 +102,33 @@ class Rover {
         this.command = command
     }
 
-    private def setWay(Directions way) {
-        currentWay = way
+    private def setWay(Directions direction) {
+        currentDirection = direction
     }
 
     private def setMinusY() {
         positionY -= 1
+        if (positionY < 0) positionY += 1
     }
 
     private def setPlusY() {
         positionY += 1
+        if (perimeterY > 0 && positionY > perimeterY) positionY -= 1
     }
 
     private def setPlusX() {
-        positionX += 1
+            positionX += 1
+        if (perimeterX > 0 && positionX > perimeterX) positionX -= 1
     }
 
     private def setMinusX() {
         positionX -= 1
+        if (positionX < 0) positionX += 1
+    }
+
+
+
+    public String getCurrentPosition(){
+        "roverId:${roverId} X:${positionX} Y:${positionY} direction:${currentDirection}"
     }
 }

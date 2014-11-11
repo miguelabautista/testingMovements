@@ -16,13 +16,15 @@ class Movement {
 
         setParams(movements)
 
-        initiateRoves()
+        initiateRovers()
     }
 
     private void setParams(String movements) {
         def result = new Scanner(movements)
 
-        def rover = new Rover()
+        def roverId = 1
+
+        def rover = new Rover(roverId)
 
         while (result.hasNext()) {
             if (result.hasNextInt()) {
@@ -30,12 +32,14 @@ class Movement {
             } else {
                 String value = result.next()
 
-                rover = setValues(value, rover)
+                rover = setValues(value, rover, roverId)
+
+
             }
         }
     }
 
-    private Rover setValues(String value, Rover rover) {
+    private Rover setValues(String value, Rover rover, int roverId) {
         if (value == Directions.N.name()) {
             rover.initialWay(Directions.N)
         } else if (value == Directions.E.name()) {
@@ -57,37 +61,38 @@ class Movement {
                 }
             }
             rovers << rover
-            rover = new Rover()
+            rover = new Rover(++roverId)
         }
         rover
     }
 
-    private void initiateRoves() {
+    private void initiateRovers() {
         if (!rovers.isEmpty()) {
 
             rovers.each { rover ->
 
                 if (rover.numbers.size() == 4) {
-                    rover.setUpperRightCoodernates(rover.numbers.get(0), rover.numbers.get(1))
+                    rover.setUpperRightCoordinates(rover.numbers.get(0), rover.numbers.get(1))
                     rover.firstPosition(rover.numbers.get(2), rover.numbers.get(3))
                 } else {
                     rover.firstPosition(rover.numbers.get(0), rover.numbers.get(1))
                 }
 
-                rover.movementsList.each { Moves side ->
-                    rover.changeWay(side)
+                rover.movementsList.each { Moves move ->
+                    rover.changeWay(move)
                 }
             }
         }
     }
 
-    def getLastPosition() {
+    String getLastPosition() {
         def result = ""
 
         rovers.each { rover ->
-            result = result + "${rover.positionX} ${rover.positionY} ${rover.currentWay} "
+            result = result + "${rover.positionX} ${rover.positionY} ${rover.currentDirection} "
         }
 
         result.trim()
     }
+
 }

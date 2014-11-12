@@ -31,7 +31,7 @@ public class Responses {
                 Movement movement = new Movement();
                 movement.movements(theInput);
 
-                theOutput = movement.getLastPosition();
+                theOutput = movement.getLastPosition().toString();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

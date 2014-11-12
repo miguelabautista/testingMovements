@@ -119,7 +119,7 @@ class Movement {
      * @return Returns the last position and direction of all rovers.
      */
     String getLastPosition() {
-        def result = ""
+        String result = ""
 
         rovers.each { rover ->
             result = result + "${rover.positionX} ${rover.positionY} ${rover.currentDirection} "

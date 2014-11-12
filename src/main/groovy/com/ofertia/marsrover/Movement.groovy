@@ -63,13 +63,13 @@ class Movement {
      */
     private Rover setValues(String value, Rover rover, int roverId) {
         if (value == Directions.N.name()) {
-            rover.initialWay(Directions.N)
+            rover.initialCommand(Directions.N)
         } else if (value == Directions.E.name()) {
-            rover.initialWay(Directions.E)
+            rover.initialCommand(Directions.E)
         } else if (value == Directions.S.name()) {
-            rover.initialWay(Directions.S)
+            rover.initialCommand(Directions.S)
         } else if (value == Directions.W.name()) {
-            rover.initialWay(Directions.W)
+            rover.initialCommand(Directions.W)
         } else if (value ==~ /\w*/) {
             def mo = value.collect({ it })
 
@@ -106,7 +106,7 @@ class Movement {
                 }
 
                 rover.movementsList.each { Moves move ->
-                    rover.changeWay(move)
+                    rover.changeDirection(move)
                 }
             }
         }

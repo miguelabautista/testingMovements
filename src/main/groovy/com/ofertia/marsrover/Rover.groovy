@@ -66,7 +66,7 @@ class Rover extends Observable {
      *
      * @param direction initial direction
      */
-    void initialWay(Directions direction) {
+    void initialCommand(Directions direction) {
         currentDirection = direction
 
         switch (currentDirection) {
@@ -87,36 +87,36 @@ class Rover extends Observable {
      * @param newMove the move
      *
      */
-    void changeWay(Moves newMove) {
+    void changeDirection(Moves newMove) {
         switch (currentDirection) {
             case currentDirection.N: if (newMove == Moves.L) {
-                setCommand(Commands.MINUSX); setWay(Directions.W)
+                setCommand(Commands.MINUSX); setDirection(Directions.W)
             } else if (newMove == Moves.R) {
-                setCommand(Commands.PLUSX); setWay(Directions.E)
+                setCommand(Commands.PLUSX); setDirection(Directions.E)
             } else {
                 move()
             }
                 break
             case currentDirection.E: if (newMove == Moves.L) {
-                setCommand(Commands.PLUSY); setWay(Directions.N)
+                setCommand(Commands.PLUSY); setDirection(Directions.N)
             } else if (newMove == Moves.R) {
-                setCommand(Commands.MINUSY); setWay(Directions.S)
+                setCommand(Commands.MINUSY); setDirection(Directions.S)
             } else {
                 move()
             }
                 break
             case currentDirection.S: if (newMove == Moves.L) {
-                setCommand(Commands.PLUSX); setWay(Directions.E)
+                setCommand(Commands.PLUSX); setDirection(Directions.E)
             } else if (newMove == Moves.R) {
-                setCommand(Commands.MINUSX); setWay(Directions.W)
+                setCommand(Commands.MINUSX); setDirection(Directions.W)
             } else {
                 move()
             }
                 break
             case currentDirection.W: if (newMove == Moves.L) {
-                setCommand(Commands.MINUSY); setWay(Directions.S)
+                setCommand(Commands.MINUSY); setDirection(Directions.S)
             } else if (newMove == Moves.R) {
-                setCommand(Commands.PLUSY); setWay(Directions.N)
+                setCommand(Commands.PLUSY); setDirection(Directions.N)
             } else {
                 move()
             }
@@ -136,7 +136,7 @@ class Rover extends Observable {
      *
      * @param direction new direction
      */
-    private void setWay(Directions direction) {
+    private void setDirection(Directions direction) {
         currentDirection = direction
     }
 

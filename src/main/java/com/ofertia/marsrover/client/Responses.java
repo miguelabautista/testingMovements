@@ -1,4 +1,4 @@
-package com.ofertia.masrover.client;
+package com.ofertia.marsrover.client;
 
 import com.ofertia.marsrover.Movement;
 

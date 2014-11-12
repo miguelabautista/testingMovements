@@ -10,6 +10,14 @@ class Movement {
 
     private List<Rover> rovers
 
+    /**
+     *
+     * Set up rovers movements
+     *
+     * @param movements - the movements of all rovers.
+     *
+     *
+     */
     void movements(String movements) {
 
         rovers = []
@@ -19,6 +27,13 @@ class Movement {
         initiateRovers()
     }
 
+    /**
+     *
+     * Splits the string and sets the values for each rover
+     *
+     * @param movements - movements of all rovers
+     *
+     */
     private void setParams(String movements) {
         def result = new Scanner(movements)
 
@@ -33,12 +48,19 @@ class Movement {
                 String value = result.next()
 
                 rover = setValues(value, rover, roverId)
-
-
             }
         }
     }
 
+    /**
+     * Set the values for each rover
+     *
+     * @param  value - current value from the rover
+     * @param  rover - current rover to be configured
+     * @param  roverId - Id of the rover
+     *
+     * @return A Rover configured
+     */
     private Rover setValues(String value, Rover rover, int roverId) {
         if (value == Directions.N.name()) {
             rover.initialWay(Directions.N)
@@ -66,6 +88,11 @@ class Movement {
         rover
     }
 
+    /**
+     *
+     *  set positions and initiates moves for all rovers sequentially
+     *
+     */
     private void initiateRovers() {
         if (!rovers.isEmpty()) {
 
@@ -85,6 +112,12 @@ class Movement {
         }
     }
 
+    /**
+     *  Returns the last position and direction of all rovers.
+     *
+     *
+     * @return Returns the last position and direction of all rovers.
+     */
     String getLastPosition() {
         def result = ""
 

@@ -5,7 +5,7 @@ import spock.lang.Specification
 /**
  * Created by root on 09/11/14.
  */
-class Input extends Specification {
+class InputTest extends Specification {
 
     def movement = new Movement()
 

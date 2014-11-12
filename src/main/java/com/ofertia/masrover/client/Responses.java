@@ -12,6 +12,12 @@ public class Responses {
 
     private int state = WAITING;
 
+    /**
+     *  Processes input from the client
+     *
+     * @param theInput new Input from client
+     * @return Returns the result.
+     */
     public String processInput(String theInput) {
         String theOutput = null;
 
@@ -25,7 +31,7 @@ public class Responses {
                 Movement movement = new Movement();
                 movement.movements(theInput);
 
-                theOutput = "result " + movement.getLastPosition();
+                theOutput = movement.getLastPosition();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

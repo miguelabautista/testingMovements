@@ -7,7 +7,7 @@ import com.ofertia.marsrover.util.Moves
 /**
  * Created by root on 10/11/14.
  */
-class Rover extends Observable{
+class Rover extends Observable {
     private int perimeterX
     private int perimeterY
     private Directions currentDirection
@@ -18,7 +18,7 @@ class Rover extends Observable{
 
     private int roverId
 
-    Rover(int roverId){
+    Rover(int roverId) {
         this.roverId = roverId;
     }
 
@@ -26,17 +26,33 @@ class Rover extends Observable{
 
     List<Integer> numbers = []
 
+    /**
+     *  Set the ground limits for the rover.
+     *
+     * @param x - Coordinate X
+     * @param y - Coordinate Y
+     */
     void setUpperRightCoordinates(int x, int y) {
         this.perimeterX = x
         this.perimeterY = y
     }
 
+    /**
+     *  Set the first Position of the rover in the plateau
+     *
+     * @param x - Coordinate X
+     * @param y - Coordinate Y
+     */
     void firstPosition(int x, int y) {
         positionX = x;
         positionY = y;
     }
 
-
+    /**
+     *
+     *  Changes the position of the rover in the plateau
+     *
+     */
     private void move() {
         switch (command) {
             case command.MINUSX: setMinusX(); break
@@ -45,7 +61,11 @@ class Rover extends Observable{
             case command.PLUSY: setPlusY(); break
         }
     }
-
+    /**
+     *  Sets the first command
+     *
+     * @param direction initial direction
+     */
     void initialWay(Directions direction) {
         currentDirection = direction
 
@@ -61,7 +81,13 @@ class Rover extends Observable{
         }
     }
 
-    def changeWay(Moves newMove) {
+    /**
+     *  Sets the new move
+     *
+     * @param newMove the move
+     *
+     */
+    void changeWay(Moves newMove) {
         switch (currentDirection) {
             case currentDirection.N: if (newMove == Moves.L) {
                 setCommand(Commands.MINUSX); setWay(Directions.W)
@@ -98,37 +124,48 @@ class Rover extends Observable{
         }
     }
 
-    private def setCommand(Commands command) {
+    /**
+     *
+     * @param command new coomand
+     * @return
+     */
+    private void setCommand(Commands command) {
         this.command = command
     }
-
-    private def setWay(Directions direction) {
+    /**
+     *
+     * @param direction new direction
+     */
+    private void setWay(Directions direction) {
         currentDirection = direction
     }
 
-    private def setMinusY() {
+    /**
+     * Movement to South
+     */
+    private void setMinusY() {
         positionY -= 1
         if (positionY < 0) positionY += 1
     }
-
-    private def setPlusY() {
+    /**
+     * Movement to North
+     */
+    private void setPlusY() {
         positionY += 1
         if (perimeterY > 0 && positionY > perimeterY) positionY -= 1
     }
-
-    private def setPlusX() {
-            positionX += 1
+    /**
+     * Movement to East
+     */
+    private void setPlusX() {
+        positionX += 1
         if (perimeterX > 0 && positionX > perimeterX) positionX -= 1
     }
-
-    private def setMinusX() {
+    /**
+     * Movement to West
+     */
+    private void setMinusX() {
         positionX -= 1
         if (positionX < 0) positionX += 1
-    }
-
-
-
-    public String getCurrentPosition(){
-        "roverId:${roverId} X:${positionX} Y:${positionY} direction:${currentDirection}"
     }
 }
